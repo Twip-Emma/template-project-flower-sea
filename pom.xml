@@ -11,6 +11,7 @@
     <modules>
         <module>api-common</module>
         <module>higanbana-sorrow</module>
+        <module>gateway</module>
     </modules>
 
     <!-- SpringBoot 版本 -->
