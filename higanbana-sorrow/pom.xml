@@ -32,6 +32,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!-- 消息队列RabbitMQ（SpringAMQP） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>${rabbit.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>

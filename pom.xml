@@ -39,6 +39,7 @@
         <naocs.version>2.2.5.RELEASE</naocs.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <fastjson.version>1.2.71</fastjson.version>
+        <rabbit.version>2.3.9.RELEASE</rabbit.version>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +75,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- SpringAMQP -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -81,6 +88,18 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <!--单元测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
