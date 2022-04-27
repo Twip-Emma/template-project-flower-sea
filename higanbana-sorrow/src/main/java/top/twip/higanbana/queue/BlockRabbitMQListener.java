@@ -8,12 +8,11 @@ import java.util.Date;
 
 /**
  * @Author: 七画一只妖
- * @Date: 2022-04-24 20:50
+ * @Date: 2022-04-27 13:13
  */
 @Component
-@RabbitListener(queues = "flower_sea_delayed_queue")
-public class DelayRabbitMQListener {
-
+@RabbitListener(queues = "flower_sea_dlx_queue")
+public class BlockRabbitMQListener {
     @RabbitHandler
     public void process(String msg) {
         System.out.println("接收到消息：" + msg + new Date());
