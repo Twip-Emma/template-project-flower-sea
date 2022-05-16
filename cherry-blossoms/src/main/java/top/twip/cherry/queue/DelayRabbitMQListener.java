@@ -1,4 +1,4 @@
-package top.twip.higanbana.queue;
+package top.twip.cherry.queue;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -8,13 +8,14 @@ import java.util.Date;
 
 /**
  * @Author: 七画一只妖
- * @Date: 2022-04-27 13:13
+ * @Date: 2022-05-16 16:09
  */
 @Component
-@RabbitListener(queues = "flower_sea_dlx_queue")
-public class BlockRabbitMQListener {
+@RabbitListener(queues = "flower_sea_delayed_queue_cherry")
+public class DelayRabbitMQListener {
+
     @RabbitHandler
-    public void process(String msg) {
-        System.out.println("接收到消息：" + msg + new Date());
+    public void process(String msg){
+        System.out.println("樱花接收到消息：" + msg + new Date());
     }
 }

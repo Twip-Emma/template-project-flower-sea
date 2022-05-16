@@ -11,11 +11,11 @@ import java.util.Date;
  * @Date: 2022-04-24 20:50
  */
 @Component
-@RabbitListener(queues = "flower_sea_delayed_queue")
+@RabbitListener(queues = "flower_sea_delayed_queue_higanbana")
 public class DelayRabbitMQListener {
 
     @RabbitHandler
     public void process(String msg) {
-        System.out.println("接收到消息：" + msg + new Date());
+        System.out.println("彼岸花接收到消息：" + msg + new Date());
     }
 }

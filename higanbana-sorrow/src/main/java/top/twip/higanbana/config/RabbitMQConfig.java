@@ -20,7 +20,8 @@ public class RabbitMQConfig {
     //交换机（发送者需要投递到这里）
     private  static final  String  DELAYED_EXCHANGE = "flower_sea_delayed_exchange";
     //队列（需要监听的）
-    private static  final  String  DELAYED_QUEUE="flower_sea_delayed_queue";
+    private static  final  String  DELAYED_QUEUE1="flower_sea_delayed_queue_higanbana";
+    private static  final  String  DELAYED_QUEUE2="flower_sea_delayed_queue_cherry";
     //routinKey
     private static  final  String ROUTINKEY="flower_sea_routinkey";
 
@@ -45,16 +46,24 @@ public class RabbitMQConfig {
     /**
      * 队列
      */
-    @Bean("delayedQueue")
-    Queue delayedQueue(){
-        return new Queue(DELAYED_QUEUE);
+    @Bean("delayedQueue1")
+    Queue delayedQueue1(){
+        return new Queue(DELAYED_QUEUE1);
+    }
+    @Bean("delayedQueue2")
+    Queue delayedQueue2(){
+        return new Queue(DELAYED_QUEUE2);
     }
 
     /**
      * 绑定
      */
     @Bean
-    Binding queueBindingExcehang(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue")  Queue delayedQueue){
+    Binding queueBindingExcehang1(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue1")  Queue delayedQueue){
+        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY).noargs();
+    }
+    @Bean
+    Binding queueBindingExcehang2(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue2")  Queue delayedQueue){
         return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY).noargs();
     }
 }
