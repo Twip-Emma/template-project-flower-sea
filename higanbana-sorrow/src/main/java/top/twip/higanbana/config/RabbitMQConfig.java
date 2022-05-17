@@ -23,7 +23,8 @@ public class RabbitMQConfig {
     private static  final  String  DELAYED_QUEUE1="flower_sea_delayed_queue_higanbana";
     private static  final  String  DELAYED_QUEUE2="flower_sea_delayed_queue_cherry";
     //routinKey
-    private static  final  String ROUTINKEY="flower_sea_routinkey";
+    private static  final  String ROUTINKEY1="flower_sea_routinkey_higanbana";
+    private static  final  String ROUTINKEY2="flower_sea_routinkey_cherry";
 
 
     /**
@@ -60,10 +61,10 @@ public class RabbitMQConfig {
      */
     @Bean
     Binding queueBindingExcehang1(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue1")  Queue delayedQueue){
-        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY).noargs();
+        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY1).noargs();
     }
     @Bean
     Binding queueBindingExcehang2(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue2")  Queue delayedQueue){
-        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY).noargs();
+        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY2).noargs();
     }
 }

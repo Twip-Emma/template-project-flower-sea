@@ -20,29 +20,28 @@ public class DelayMessageQueueTest {
 
     @Test
     void test1(){
-        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey","这是消息4",message -> {
+        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey_higanbana","这是消息4",message -> {
             message.getMessageProperties().setDelay(20000);
-            log.info("发送，当前时间{}，消息为{}", new Date(),"1");
+            log.info("发送，当前时间{}，消息为{}", new Date(),"4");
             return message;
         });
 
-        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey","这是消息1",message -> {
+        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey_cherry","这是消息1",message -> {
             message.getMessageProperties().setDelay(1000);
             log.info("发送，当前时间{}，消息为{}", new Date(),"1");
             return message;
         });
 
-        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey","这是消息3",message -> {
+        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey_higanbana","这是消息3",message -> {
             message.getMessageProperties().setDelay(10000);
             log.info("发送，当前时间{}，消息为{}", new Date(),"3");
             return message;
         });
 
-        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey","这是消息2",message -> {
+        rabbitTemplate.convertAndSend("flower_sea_delayed_exchange","flower_sea_routinkey_cherry","这是消息2",message -> {
             message.getMessageProperties().setDelay(5000);
             log.info("发送，当前时间{}，消息为{}", new Date(),"2");
             return message;
         });
     }
-
 }
