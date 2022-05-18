@@ -18,7 +18,8 @@ import java.util.Map;
 @Configuration
 public class RabbitMQConfig {
     //交换机（发送者需要投递到这里）
-    private  static final  String  DELAYED_EXCHANGE = "flower_sea_delayed_exchange";
+    private  static final  String  DELAYED_EXCHANGE1 = "flower_sea_delayed_exchange_higanbana";
+    private  static final  String  DELAYED_EXCHANGE2 = "flower_sea_delayed_exchange_cherry";
     //队列（需要监听的）
     private static  final  String  DELAYED_QUEUE1="flower_sea_delayed_queue_higanbana";
     private static  final  String  DELAYED_QUEUE2="flower_sea_delayed_queue_cherry";
@@ -30,18 +31,20 @@ public class RabbitMQConfig {
     /**
      * 声明普通交换机
      */
-    @Bean("delayedExchange")
-    CustomExchange delayedExchange(){
+    @Bean("delayedExchange1")
+    CustomExchange delayedExchange1(){
         Map<String,Object> map = new HashMap<>();
         map.put("x-delayed-type","direct");
         /**
-         * 1.交换机
-         * 2.类型
-         * 3.是否持久化
-         * 4.是否自动删除
-         * 5其他参数
+         * 交换机|类型|是否持久化|是否自动删除|其他参数
          */
-        return new CustomExchange(DELAYED_EXCHANGE,"x-delayed-message",true,false,map);
+        return new CustomExchange(DELAYED_EXCHANGE1,"x-delayed-message",true,false,map);
+    }
+    @Bean("delayedExchange2")
+    CustomExchange delayedExchange2(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("x-delayed-type","direct");
+        return new CustomExchange(DELAYED_EXCHANGE2,"x-delayed-message",true,false,map);
     }
 
     /**
@@ -60,11 +63,11 @@ public class RabbitMQConfig {
      * 绑定
      */
     @Bean
-    Binding queueBindingExcehang1(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue1")  Queue delayedQueue){
+    Binding queueBindingExcehang1(@Qualifier("delayedExchange1") CustomExchange delayedExchange, @Qualifier("delayedQueue1")  Queue delayedQueue){
         return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY1).noargs();
     }
     @Bean
-    Binding queueBindingExcehang2(@Qualifier("delayedExchange") CustomExchange delayedExchange, @Qualifier("delayedQueue2")  Queue delayedQueue){
+    Binding queueBindingExcehang2(@Qualifier("delayedExchange2") CustomExchange delayedExchange, @Qualifier("delayedQueue2")  Queue delayedQueue){
         return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(ROUTINKEY2).noargs();
     }
 }
