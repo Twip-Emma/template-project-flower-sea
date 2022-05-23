@@ -21,7 +21,7 @@ public class DelayMessageQueueTest {
     @Test
     void test1(){
         rabbitTemplate.convertAndSend("flower_sea_delayed_exchange_higanbana","flower_sea_routinkey_higanbana","这是消息4",message -> {
-            message.getMessageProperties().setDelay(20000);
+            message.getMessageProperties().setDelay(13000);
             log.info("发送，当前时间{}，消息为{}", new Date(),"4");
             return message;
         });
@@ -33,7 +33,7 @@ public class DelayMessageQueueTest {
         });
 
         rabbitTemplate.convertAndSend("flower_sea_delayed_exchange_higanbana","flower_sea_routinkey_higanbana","这是消息3",message -> {
-            message.getMessageProperties().setDelay(10000);
+            message.getMessageProperties().setDelay(8000);
             log.info("发送，当前时间{}，消息为{}", new Date(),"3");
             return message;
         });
