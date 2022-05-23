@@ -2,10 +2,10 @@
  * @Author: 七画一只妖
  * @Date: 2022-05-22 21:37:52
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2022-05-22 22:17:42
+ * @LastEditTime: 2022-05-23 11:23:20
  * @Description: file content
 -->
-# 花海-模板工程 
+# 花海-模板工程
 
 ## 介绍以及Q/A
 
@@ -40,9 +40,16 @@
 
 ### 项目内模块
 >- **api-common模块：**
+   > 代表公共模块内含：数据工厂、公共变量、实体类、远程调用client、枚举等
+
 >- **gateway模块：**
+   > 代表网关：已实现：服务映射、跨域
+
 >- **cherry-blossoms：模块**
+   > 消费者/生产者A
+
 >- **higanbana-sorrow：模块**
+   > 消费者/生产者B
 
 ### 已实现的功能
 >- **数据库** 内置用户表和一条用户数据，可通过访问`http://localhost:10010/higanbana/index`查询到
@@ -53,5 +60,155 @@
 ## 开始使用
 
 ### 1.配置数据库
+**第一步、创建数据库，命名为flower_sea**
+
+**第二步、在这个数据库下执行以下SQL语句**
+~~~sql
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : 本地数据库
+ Source Server Type    : MySQL
+ Source Server Version : 80023
+ Source Host           : localhost:3306
+ Source Schema         : flower_sea
+
+ Target Server Type    : MySQL
+ Target Server Version : 80023
+ File Encoding         : 65001
+
+ Date: 23/05/2022 10:43:38
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `user_info`;
+CREATE TABLE `user_info`  (
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `user_sex` int NULL DEFAULT NULL,
+  `user_age` int NULL DEFAULT NULL,
+  `user_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_info
+-- ----------------------------
+INSERT INTO `user_info` VALUES ('123', '张三', 1, 19, 'zhangsan@163.com');
+
+SET FOREIGN_KEY_CHECKS = 1;
+~~~
 ### 2.配置Nacos
+**第一步、设置Nacos端口号为8848**
+
+**第二步、创建三个配置文分别命名**
+>- higanbanaservice
+>- cherryservice
+>- flowerseagateway
+
+**第三步、为higanbanaservice配置文件编写内容**
+~~~yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/flower_sea?useSSL=false&allowPublicKeyRetrieval=true
+    username: # 数据库账户
+    password: # 数据库密码
+    driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    host:  # 主机名
+    port:  # 端口
+    virtual-host:  # 虚拟主机
+    username:  # 用户名
+    password:  # 密码
+    cache:
+      channel:
+        checkout-timeout: 3000000
+    template:
+      receive-timeout: 3000000
+    listener:
+      simple:
+        prefetch: 1
+~~~
+
+**第四步、为cherryservice配置文件编写内容**
+~~~yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/flower_sea?useSSL=false&allowPublicKeyRetrieval=true
+    username: # 数据库账户
+    password: # 数据库密码
+    driver-class-name: com.mysql.jdbc.Driver
+~~~
+
+**第五步、为flowerseagateway配置文件编写内容**
+~~~yaml
+logging:
+  level:
+    com.seckill: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: higanbanaservice
+          uri: lb://higanbanaservice
+          predicates:
+            - Path=/higanbana/**
+        - id: cherryservice
+          uri: lb://cherryservice
+          predicates:
+            - Path=/cherry/**
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            allowCredentials: true
+            maxAge: 360000
+~~~
 ### 3.配置缓存Redis
+**方法一、进入配置文件**
+> notify-keyspace-events ""
+
+修改为
+
+> notify-keyspace-events Ex
+
+**方法二、打开redis-cli**
+
+输入
+
+> config set notify-keyspace-events Ex
+
+### 4.配置模块内配置文件
+**第一步、为higanbana、cherry、gateway模块的resources目录下创建bootstrap.yml文件并填写一下内容**
+~~~yml
+spring:
+  application:
+    name: higanbanaservice、cherryservice、flowerseagateway、 # 服务名称，不同模块用对应的服务名称（三选一）
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # Nacos地址
+      config:
+        file-extension: yaml # 文件后缀名
+~~~
+
+**第二步、为higanbana、cherry模块的resources目录下创建application.yml文件并填写一下内容**
+~~~yml
+server:
+  port: 0
+~~~
+
+**第三步、为gateway模块的resources目录下创建application.yml文件并填写一下内容**
+~~~yml
+server:
+  port: 10010
+~~~
