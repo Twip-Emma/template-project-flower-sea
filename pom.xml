@@ -42,6 +42,7 @@
         <rabbit.version>2.3.9.RELEASE</rabbit.version>
         <seata.version>1.4.2</seata.version>
         <redis.version>2.3.9.RELEASE</redis.version>
+        <feign.version>2.2.7.RELEASE</feign.version>
     </properties>
 
     <dependencyManagement>

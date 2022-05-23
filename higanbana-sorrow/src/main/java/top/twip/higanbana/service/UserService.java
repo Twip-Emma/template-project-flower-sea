@@ -22,4 +22,11 @@ public class UserService {
     public List<UserInfo> getAllUserInfo() {
         return userInfoDao.selectList(null);
     }
+
+    /**
+     * 工具ID获取用户信息
+     */
+    public UserInfo getUserInfoById(String id) {
+        return userInfoDao.selectById(id);
+    }
 }

@@ -1,18 +1,2 @@
 server:
   port: 0
-
-#spring:
-#  rabbitmq:
-#    host: twip.top # 主机名
-#    port: 5672 # 端口
-#    virtual-host: /sakura # 虚拟主机
-#    username: sakura # 用户名
-#    password: 88888888 # 密码
-#    cache:
-#      channel:
-#        checkout-timeout: 3000000
-#    template:
-#      receive-timeout: 3000000
-#    listener:
-#      simple:
-#        prefetch: 1
