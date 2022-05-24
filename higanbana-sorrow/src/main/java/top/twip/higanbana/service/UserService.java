@@ -1,5 +1,6 @@
 package top.twip.higanbana.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import top.twip.common.entity.user.UserInfo;
@@ -27,6 +28,8 @@ public class UserService {
      * 工具ID获取用户信息
      */
     public UserInfo getUserInfoById(String id) {
+//        return userInfoDao.selectOne(new QueryWrapper<UserInfo>()
+//                .eq("user_id", id));
         return userInfoDao.selectById(id);
     }
 }

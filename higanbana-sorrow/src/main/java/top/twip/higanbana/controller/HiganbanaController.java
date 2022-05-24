@@ -1,6 +1,7 @@
 package top.twip.higanbana.controller;
 
 import org.springframework.web.bind.annotation.*;
+import top.twip.common.entity.user.UserInfo;
 import top.twip.common.response.DataFactory;
 import top.twip.common.response.SimpleData;
 import top.twip.higanbana.service.UserService;
@@ -25,6 +26,10 @@ public class HiganbanaController {
 
     @PostMapping("/getUserById")
     public Object getUserById(@RequestParam String id) {
-        return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getUserInfoById(id));
+//        return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getUserInfoById(id));
+        System.out.println(id);
+        UserInfo id1 = userService.getUserInfoById(id);
+        System.out.println(id1);
+        return id1;
     }
 }

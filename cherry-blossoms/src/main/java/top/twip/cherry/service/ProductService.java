@@ -25,7 +25,8 @@ public class ProductService {
     public Object getAllProduct() {
         List<ProductInfo> productInfos = productInfoDao.selectList(null);
         for (ProductInfo productInfo : productInfos) {
-            productInfo.setUserInfo(higanbanaClient.getUserById(productInfo.getUserId()));
+            UserInfo userInfo = higanbanaClient.getUserById(productInfo.getUserId());
+            productInfo.setUserInfo(userInfo);
         }
         return productInfos;
     }

@@ -15,6 +15,6 @@ import top.twip.common.response.SimpleData;
  */
 @FeignClient("higanbanaservice")
 public interface HiganbanaClient {
-    @PostMapping("/higanbana/getUserById")
+    @PostMapping("higanbana/getUserById")
     UserInfo getUserById(@RequestParam String id);
 }
