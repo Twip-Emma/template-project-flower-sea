@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @MapperScan("top.twip.cherry.dao")
 @EnableFeignClients(basePackages = "top.twip.common.feign")
-@SpringBootApplication(scanBasePackages = "top.twip.cherry")
+@SpringBootApplication(scanBasePackages = {"top.twip.cherry","top.twip.common.globalconfig"})
 public class CherryBlossomsApplication {
 
     public static void main(String[] args) {

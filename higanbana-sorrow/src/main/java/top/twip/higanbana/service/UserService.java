@@ -25,7 +25,7 @@ public class UserService {
     }
 
     /**
-     * 工具ID获取用户信息
+     * 根据ID获取用户信息
      */
     public UserInfo getUserInfoById(String id) {
 //        return userInfoDao.selectOne(new QueryWrapper<UserInfo>()
