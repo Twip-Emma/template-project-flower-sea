@@ -137,34 +137,26 @@ spring:
 
 **第四步、为cherryservice配置文件编写内容**
 ~~~yaml
-
-logging:
-   level:
-      com.seckill: debug
-   pattern:
-      dateformat: MM-dd HH:mm:ss:SSS
 spring:
-   cloud:
-      gateway:
-         routes:
-            - id: higanbanaservice
-              uri: lb://higanbanaservice
-              predicates:
-                 - Path=/higanbana/**
-            - id: cherryservice
-              uri: lb://cherryservice
-              predicates:
-                 - Path=/cherry/**
-         globalcors:
-            add-to-simple-url-handler-mapping: true
-            cors-configurations:
-               '[/**]':
-                  allowedOrigins: "*"
-                  allowedHeaders: "*"
-                  allowedMethods: "*"
-                  allowCredentials: true
-                  maxAge: 360000
-
+   datasource:
+      url: jdbc:mysql://localhost:3306/flower_sea?useSSL=false&allowPublicKeyRetrieval=true
+      username: # 数据库账号
+      password: # 数据库密码
+      driver-class-name: com.mysql.jdbc.Driver
+   rabbitmq:
+      host:  # 主机名
+      port:  # 端口
+      virtual-host:  # 虚拟主机
+      username:  # 用户名
+      password:  # 密码
+      cache:
+         channel:
+            checkout-timeout: 3000000
+      template:
+         receive-timeout: 3000000
+      listener:
+         simple:
+            prefetch: 1
 ~~~
 
 **第五步、为flowerseagateway配置文件编写内容**
