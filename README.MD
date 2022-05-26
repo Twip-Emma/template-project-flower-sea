@@ -225,4 +225,5 @@ server:
 ~~~yml
 server:
   port: 10010
+
 ~~~
