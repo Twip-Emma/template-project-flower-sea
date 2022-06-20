@@ -32,4 +32,9 @@ public class UserService {
 //                .eq("user_id", id));
         return userInfoDao.selectById(id);
     }
+
+    /**
+     * 新增用户
+     */
+
 }

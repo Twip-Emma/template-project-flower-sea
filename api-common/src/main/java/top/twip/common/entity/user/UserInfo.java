@@ -1,5 +1,6 @@
 package top.twip.common.entity.user;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 @TableName("user_info")
 public class UserInfo {
-    @TableId("user_id")
+    @TableId(value = "user_id",type = IdType.ASSIGN_ID)
     private String userId;
     private String userName;
     private Integer userSex;

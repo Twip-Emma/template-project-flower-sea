@@ -38,4 +38,9 @@ public class HiganbanaController {
             return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getUserInfoById(id));
         }
     }
+
+    @PostMapping("/addUser")
+    public Object addUser(UserInfo userInfo){
+        return null;
+    }
 }
