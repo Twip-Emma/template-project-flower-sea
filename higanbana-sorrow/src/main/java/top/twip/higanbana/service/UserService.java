@@ -64,4 +64,31 @@ public class UserService{
             return reUserEntity.getUserId();
         }
     }
+
+    /**
+     * 修改用户信息
+     */
+    public String updateUserInfo(UserInfo userInfo) throws Exception{
+        int update = userInfoDao.updateById(userInfo);
+        if (update == 0) {
+            throw new DatabaseHandlerException("数据库操作失败");
+        }
+
+        UserInfo reUserEntity = userInfoDao.selectOne(new QueryWrapper<>(userInfo));
+        if (reUserEntity == null) {
+            throw new DatabaseHandlerException("数据库操作失败");
+        }else {
+            return reUserEntity.getUserId();
+        }
+    }
+
+    /**
+     * 删除用户
+     */
+    public void deleteUserInfo(String id) throws Exception {
+        int delete = userInfoDao.deleteById(id);
+        if (delete == 0) {
+            throw new DatabaseHandlerException("数据库操作失败");
+        }
+    }
 }
