@@ -12,6 +12,9 @@ public enum CodeEnum {
     FORBIDDEN(403), // 请求被拒绝
     UNAUTHORIZED(401), // 未授权不通过
     BAD_REQUEST(400), // 服务器无法解析该请求
+
+    // 自定义状态码
+    NOT_ALL_OK(201), // 成功了，但是不符合要求
     TOKEN_EXPIRED(1001); // 自定义：TOKEN过期
 
     private final Integer code;
