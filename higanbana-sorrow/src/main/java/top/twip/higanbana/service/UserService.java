@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import top.twip.common.entity.user.UserInfo;
+import top.twip.common.exception.BadRequestDataException;
 import top.twip.common.exception.DatabaseDataNotFound;
 import top.twip.common.exception.DatabaseHandlerException;
 import top.twip.higanbana.dao.UserInfoDao;
@@ -47,7 +48,7 @@ public class UserService{
         List<UserInfo> userInfo1 = userInfoDao.selectList(new QueryWrapper<UserInfo>()
                 .eq("user_mail", userMail));
         if (userInfo1.size() != 0) {
-            throw new DatabaseHandlerException("用户邮箱已存在");
+            throw new BadRequestDataException("用户邮箱已存在");
         }
 
         // 执行插入操作

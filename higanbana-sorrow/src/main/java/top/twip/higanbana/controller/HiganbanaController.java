@@ -31,11 +31,7 @@ public class HiganbanaController {
             return userService.getAllUserInfo();
         }
         else {
-            try {
-                return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getAllUserInfo());
-            } catch (Exception e) {
-                return DataFactory.fail(CodeEnum.INTERNAL_ERROR, "直接查询发生错误，可能是数据库异常");
-            }
+            return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getAllUserInfo());
         }
     }
 
@@ -50,11 +46,7 @@ public class HiganbanaController {
         if(request.getHeader(FeignConstants.HEADER_NAME.getValue()) != null) {
             return userService.getUserInfoById(id);
         } else {
-            try {
-                return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getUserInfoById(id));
-            } catch (Exception e) {
-                return DataFactory.fail(CodeEnum.NOT_FOUND, e.getMessage());
-            }
+            return DataFactory.success(SimpleData.class, "查询成功").parseData(userService.getUserInfoById(id));
         }
     }
 
@@ -69,11 +61,7 @@ public class HiganbanaController {
         if (request.getHeader(FeignConstants.HEADER_NAME.getValue()) != null) {
             return userService.addUserInfo(userInfo);
         }else {
-            try {
-                return DataFactory.success(SimpleData.class, "添加成功").parseData(userService.addUserInfo(userInfo));
-            } catch (Exception e) {
-                return DataFactory.fail(CodeEnum.NOT_ALL_OK, e.getMessage());
-            }
+            return DataFactory.success(SimpleData.class, "添加成功").parseData(userService.addUserInfo(userInfo));
         }
     }
 
@@ -88,11 +76,7 @@ public class HiganbanaController {
         if (request.getHeader(FeignConstants.HEADER_NAME.getValue()) != null) {
             return userService.updateUserInfo(userInfo);
         }else {
-            try {
-                return DataFactory.success(SimpleData.class, "修改成功").parseData(userService.updateUserInfo(userInfo));
-            } catch (Exception e) {
-                return DataFactory.fail(CodeEnum.INTERNAL_ERROR, e.getMessage());
-            }
+            return DataFactory.success(SimpleData.class, "修改成功").parseData(userService.updateUserInfo(userInfo));
         }
     }
 
@@ -105,11 +89,7 @@ public class HiganbanaController {
     @PostMapping("/deleteUser")
     public Object deleteUser(@RequestParam String id,
                              HttpServletRequest request) throws Exception {
-        try{
-            userService.deleteUserInfo(id);
-            return DataFactory.success(SimpleData.class, "删除成功");
-        }catch (Exception e){
-            return DataFactory.fail(CodeEnum.INTERNAL_ERROR, e.getMessage());
-        }
+        userService.deleteUserInfo(id);
+        return DataFactory.success(SimpleData.class, "删除成功");
     }
 }
