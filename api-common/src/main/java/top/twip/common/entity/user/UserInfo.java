@@ -1,8 +1,6 @@
 package top.twip.common.entity.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 /**
@@ -18,4 +16,10 @@ public class UserInfo {
     private Integer userSex;
     private Integer userAge;
     private String userMail;
+
+    @TableField(fill = FieldFill.INSERT)
+    private Long ctime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Long mtime;
 }
