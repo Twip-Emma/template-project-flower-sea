@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * @Author: 七画一只妖
  * @Date: 2022-06-22 10:05
@@ -14,7 +12,6 @@ import java.util.Date;
 public class MetaObjectTimeHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-//        fillStrategy(metaObject, "ctime", System.currentTimeMillis());
         fillStrategy(metaObject, "ctime", System.currentTimeMillis());
         fillStrategy(metaObject, "mtime", System.currentTimeMillis());
     }
