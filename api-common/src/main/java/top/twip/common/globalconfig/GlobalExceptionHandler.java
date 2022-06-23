@@ -8,6 +8,7 @@ import top.twip.common.enums.CodeEnum;
 import top.twip.common.exception.BadRequestDataException;
 import top.twip.common.exception.DatabaseDataNotFound;
 import top.twip.common.exception.DatabaseHandlerException;
+import top.twip.common.exception.OperationErrorException;
 import top.twip.common.response.DataFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,8 @@ public class GlobalExceptionHandler {
             code = CodeEnum.BAD_REQUEST;
         } else if(e instanceof BadRequestDataException){
             code = CodeEnum.NOT_ALL_OK;
+        } else if(e instanceof OperationErrorException){
+            code = CodeEnum.USER_HANDLE_ERROR;
         }
         return DataFactory.fail(code,e.getMessage());
     }

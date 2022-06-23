@@ -7,6 +7,7 @@ import top.twip.common.entity.user.UserInfo;
 import top.twip.common.exception.BadRequestDataException;
 import top.twip.common.exception.DatabaseDataNotFound;
 import top.twip.common.exception.DatabaseHandlerException;
+import top.twip.common.exception.OperationErrorException;
 import top.twip.higanbana.dao.UserInfoDao;
 
 import javax.annotation.Resource;
@@ -70,6 +71,9 @@ public class UserService{
      * 修改用户信息
      */
     public String updateUserInfo(UserInfo userInfo) throws Exception{
+        if(userInfo.getUserId() == null){
+            throw new OperationErrorException("未传入用户ID或用户不存在");
+        }
         int update = userInfoDao.updateById(userInfo);
         if (update == 0) {
             throw new DatabaseHandlerException("数据库操作失败");
